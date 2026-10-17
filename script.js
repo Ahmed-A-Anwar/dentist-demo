@@ -62,3 +62,23 @@ form.addEventListener('submit', (event) => {
 
 // Footer year
 document.querySelector('[data-year]').textContent = new Date().getFullYear();
+
+// Scroll reveal — hand-rolled IntersectionObserver, no animation library.
+// The .motion class (set inline in <head>) is absent when JavaScript is off
+// or the visitor prefers reduced motion; then everything shows at once.
+const revealTargets = document.querySelectorAll('[data-reveal]');
+const motionOn = document.documentElement.classList.contains('motion');
+
+if (!motionOn || !('IntersectionObserver' in window)) {
+  revealTargets.forEach((el) => el.classList.add('is-revealed'));
+} else {
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  revealTargets.forEach((el) => observer.observe(el));
+}

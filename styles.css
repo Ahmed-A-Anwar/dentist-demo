@@ -133,12 +133,14 @@ section[id] { scroll-margin-top: calc(var(--s4) + var(--s2)); }
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color .15s ease, border-color .15s ease;
+  transition: background-color .15s ease, border-color .15s ease,
+    transform .18s cubic-bezier(.22, 1, .36, 1);
 }
 
 .btn:hover {
   background: var(--teal-deep);
   border-color: var(--teal-deep);
+  transform: translateY(-1px);
 }
 
 .btn-small { padding: var(--s1) var(--s2); font-size: .9375rem; }
@@ -148,9 +150,13 @@ section[id] { scroll-margin-top: calc(var(--s4) + var(--s2)); }
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
+  transition: color .15s ease;
 }
 
-.link-quiet:hover { text-decoration-thickness: 2px; }
+.link-quiet:hover {
+  color: var(--teal);
+  text-decoration-thickness: 2px;
+}
 
 /* ---------- Floating WhatsApp button ---------- */
 
@@ -268,9 +274,14 @@ section[id] { scroll-margin-top: calc(var(--s4) + var(--s2)); }
 .site-nav a {
   text-decoration: none;
   font-weight: 500;
+  transition: color .15s ease;
 }
 
-.site-nav a:not(.btn):hover { text-decoration: underline; text-underline-offset: 4px; }
+.site-nav a:not(.btn):hover {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 .site-nav .btn { align-self: flex-start; }
 
 /* ---------- Hero ---------- */
@@ -323,6 +334,14 @@ section[id] { scroll-margin-top: calc(var(--s4) + var(--s2)); }
   height: 32px;
   color: var(--teal);
   margin-bottom: var(--s2);
+  transition: transform .2s cubic-bezier(.22, 1, .36, 1), color .2s ease;
+}
+
+.service:hover { border-color: var(--teal); }
+
+.service:hover .service-icon {
+  color: var(--teal-deep);
+  transform: translateY(-2px);
 }
 
 .service h3 {
@@ -410,7 +429,12 @@ section[id] { scroll-margin-top: calc(var(--s4) + var(--s2)); }
   font-weight: 600;
 }
 
-.contact-list a { font-weight: 500; }
+.contact-list a {
+  font-weight: 500;
+  text-underline-offset: 3px;
+}
+
+.contact-list a:hover { text-decoration-thickness: 2px; }
 
 .contact-form {
   display: grid;
@@ -508,8 +532,65 @@ section[id] { scroll-margin-top: calc(var(--s4) + var(--s2)); }
   font-weight: 500;
 }
 
-.footer-nav a { text-decoration: none; }
-.footer-nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.footer-nav a {
+  text-decoration: none;
+  transition: color .15s ease;
+}
+
+.footer-nav a:hover {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Motion (hand-written, no library) ----------
+   The .motion class is set by a one-line inline script in <head>, only when
+   JavaScript runs and prefers-reduced-motion is not set. Without it every
+   reveal target and hero tooth keeps its resting, fully visible state. */
+
+@keyframes tooth-in { from { opacity: 0; } to { opacity: 1; } }
+
+.motion .hero-art .tooth,
+.motion .hero-art .sparkles path {
+  opacity: 0;
+  animation: tooth-in .45s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.motion .arch .tooth:nth-child(1) { animation-delay: .12s; }
+.motion .arch .tooth:nth-child(2) { animation-delay: .175s; }
+.motion .arch .tooth:nth-child(3) { animation-delay: .23s; }
+.motion .arch .tooth:nth-child(4) { animation-delay: .285s; }
+.motion .arch .tooth:nth-child(5) { animation-delay: .34s; }
+.motion .arch .tooth:nth-child(6) { animation-delay: .395s; }
+.motion .tooth--bright { animation-delay: .45s; }
+.motion .sparkles path:nth-child(1) { animation-delay: .55s; }
+.motion .sparkles path:nth-child(2) { animation-delay: .62s; }
+.motion .sparkles path:nth-child(3) { animation-delay: .69s; }
+
+.motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .55s cubic-bezier(.22, 1, .36, 1),
+    transform .55s cubic-bezier(.22, 1, .36, 1);
+}
+
+.motion [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* calm stagger: cards and second columns trail their partner by 70ms */
+.motion .services-grid .service[data-reveal] {
+  transition: opacity .55s cubic-bezier(.22, 1, .36, 1),
+    transform .55s cubic-bezier(.22, 1, .36, 1),
+    border-color .2s ease;
+}
+
+.motion .services-grid .service:nth-child(2) { transition-delay: .07s; }
+.motion .services-grid .service:nth-child(3) { transition-delay: .14s; }
+.motion .services-grid .service:nth-child(4) { transition-delay: .21s; }
+.motion .facts[data-reveal],
+.motion .contact-form-wrap[data-reveal] { transition-delay: .07s; }
 
 /* ---------- Breakpoints ---------- */
 
@@ -571,5 +652,14 @@ section[id] { scroll-margin-top: calc(var(--s4) + var(--s2)); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn { transition: none; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+  }
 }

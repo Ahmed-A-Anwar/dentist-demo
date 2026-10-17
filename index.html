@@ -16,6 +16,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script>
+  /* Motion gate (own code, no library): scroll reveal and the hero intro run
+     only when JavaScript is available and reduced motion is not requested. */
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('motion');
+  }
+</script>
 </head>
 <body id="top">
 
@@ -67,16 +74,16 @@
           <defs>
             <path id="tooth" d="M0 24C0 10.7 12.5 0 28 0C43.5 0 56 10.7 56 24L56 42C56 57 48 68 41 68C35 68 32 57 28 57C24 57 21 68 15 68C8 68 0 57 0 42Z"/>
           </defs>
-          <g fill="none" stroke="currentColor" stroke-width="3">
-            <use href="#tooth" transform="translate(18,108) rotate(-16 28 34)"/>
-            <use href="#tooth" transform="translate(88,92) rotate(-11 28 34)"/>
-            <use href="#tooth" transform="translate(158,80) rotate(-5 28 34)"/>
-            <use href="#tooth" transform="translate(296,80) rotate(5 28 34)"/>
-            <use href="#tooth" transform="translate(366,92) rotate(11 28 34)"/>
-            <use href="#tooth" transform="translate(436,108) rotate(16 28 34)"/>
+          <g class="arch" fill="none" stroke="currentColor" stroke-width="3">
+            <use class="tooth" href="#tooth" transform="translate(18,108) rotate(-16 28 34)"/>
+            <use class="tooth" href="#tooth" transform="translate(88,92) rotate(-11 28 34)"/>
+            <use class="tooth" href="#tooth" transform="translate(158,80) rotate(-5 28 34)"/>
+            <use class="tooth" href="#tooth" transform="translate(296,80) rotate(5 28 34)"/>
+            <use class="tooth" href="#tooth" transform="translate(366,92) rotate(11 28 34)"/>
+            <use class="tooth" href="#tooth" transform="translate(436,108) rotate(16 28 34)"/>
           </g>
-          <use href="#tooth" transform="translate(227,74)" fill="currentColor"/>
-          <g fill="currentColor">
+          <use class="tooth tooth--bright" href="#tooth" transform="translate(227,74)" fill="currentColor"/>
+          <g class="sparkles" fill="currentColor">
             <path transform="translate(255,32)" d="M0-15C1.7-5.4 5.4-1.7 15 0 5.4 1.7 1.7 5.4 0 15-1.7 5.4-5.4 1.7-15 0-5.4-1.7-1.7-5.4 0-15Z"/>
             <path transform="translate(334,26) scale(.5)" d="M0-15C1.7-5.4 5.4-1.7 15 0 5.4 1.7 1.7 5.4 0 15-1.7 5.4-5.4 1.7-15 0-5.4-1.7-1.7-5.4 0-15Z"/>
             <path transform="translate(172,30) scale(.42)" d="M0-15C1.7-5.4 5.4-1.7 15 0 5.4 1.7 1.7 5.4 0 15-1.7 5.4-5.4 1.7-15 0-5.4-1.7-1.7-5.4 0-15Z"/>
@@ -88,10 +95,10 @@
 
   <section class="section" id="services">
     <div class="container">
-      <h2 class="section-title">What we do</h2>
+      <h2 class="section-title" data-reveal>What we do</h2>
       <div class="services-grid">
 
-        <article class="service">
+        <article class="service" data-reveal>
           <svg class="icon service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M12 5.4c-1.3 0-2.2-.5-3.4-.5C6.7 4.9 5.8 6 5.8 8c0 2 .9 3 1.4 5.1.5 1.9.4 4.5 1.7 4.5 1.1 0 1.3-2 2-3.7.4-1.1 1.1-1.8 1.9-1.8s1.5.7 1.9 1.8c.7 1.7.9 3.7 2 3.7 1.3 0 1.2-2.6 1.7-4.5.5-2.1 1.4-3.1 1.4-5.1 0-2-.9-3.1-2.8-3.1-1.2 0-2.1.5-3.4.5z"/>
             <circle cx="19.8" cy="6.4" r="1.8"/>
@@ -101,7 +108,7 @@
           <p>Scale, polish and floss to clear tartar and surface stains. Most people need one every six months. It takes about 45 minutes.</p>
         </article>
 
-        <article class="service">
+        <article class="service" data-reveal>
           <svg class="icon service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M9.5 4C10.33 7.85 11.15 8.67 15 9.5C11.15 10.33 10.33 11.15 9.5 15C8.67 11.15 7.85 10.33 4 9.5C7.85 8.67 8.67 7.85 9.5 4Z"/>
             <path d="M18 13.5C18.53 15.95 19.05 16.48 21.5 17C19.05 17.52 18.53 18.05 18 20.5C17.47 18.05 16.95 17.52 14.5 17C16.95 16.48 17.47 15.95 18 13.5Z"/>
@@ -111,7 +118,7 @@
           <p>A peroxide gel under a LED light lifts several shades in a single visit, and the tray we send home keeps it there.</p>
         </article>
 
-        <article class="service">
+        <article class="service" data-reveal>
           <svg class="icon service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M2 12h20"/>
             <rect x="3.5" y="7.5" width="5" height="9" rx="2"/>
@@ -122,7 +129,7 @@
           <p>Metal, ceramic or clear aligners for teenagers and adults. You get a scan, a plan and the full price before day one.</p>
         </article>
 
-        <article class="service">
+        <article class="service" data-reveal>
           <svg class="icon service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M6.5 4.5C6.5 3 7.7 2 9.2 2c1.1 0 2 .5 2.8 1.3.8-.8 1.7-1.3 2.8-1.3 1.5 0 2.7 1 2.7 2.5 0 1.7-.7 2.6-1.1 4.2H7.6C7.2 7.1 6.5 6.2 6.5 4.5z"/>
             <path d="M12 9v1.4"/>
@@ -139,12 +146,12 @@
 
   <section class="section" id="about">
     <div class="container about-inner">
-      <div class="about-text">
+      <div class="about-text" data-reveal>
         <h2 class="section-title">One dentist, start to finish.</h2>
         <p>Bright Smile Dental opened on Road 9 in Maadi in 2014. You see the same dentist at every visit, from the first check-up to the last retainer.</p>
         <p>One patient sits in the chair at a time, and we go over every option and its cost before we begin. No treatment starts on the day you are asked.</p>
       </div>
-      <dl class="facts">
+      <dl class="facts" data-reveal>
         <div class="fact">
           <dt>Hours</dt>
           <!-- PLACEHOLDER: replace with the clinic's real opening hours -->
@@ -167,7 +174,7 @@
 
   <section class="section contact" id="contact">
     <div class="container contact-inner">
-      <div class="contact-info">
+      <div class="contact-info" data-reveal>
         <h2 class="section-title">Come and see us</h2>
         <p class="contact-lede">Call the clinic, or send a message on WhatsApp and we reply the same working day.</p>
         <ul class="contact-list">
@@ -206,7 +213,7 @@
         </ul>
       </div>
 
-      <div class="contact-form-wrap">
+      <div class="contact-form-wrap" data-reveal>
         <form class="contact-form" id="callback-form">
           <div class="field">
             <label for="name">Name</label>
